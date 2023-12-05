@@ -12,10 +12,10 @@ export class TvApp extends LitElement {
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
     this.activeItem = {
-      title: null,
-      id: null,
-      description: null,
-      author: null,
+      title: '',
+      id: '',
+      description: '',
+      author: '',
     };
   }
   // convention I enjoy using to define the tag's name
