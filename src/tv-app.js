@@ -163,7 +163,6 @@ export class TvApp extends LitElement {
     </p>
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
       </sl-dialog>
-    <
     `;
   }
 
