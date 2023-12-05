@@ -114,29 +114,75 @@ export class TvApp extends LitElement {
   // LitElement rendering template of your element
   render() {
     return html`
-      <h2>${this.name}</h2>
-      ${
-        this.listings.map(
-          (item) => html`
+       <h2>${this.name}</h2>
+      <div class="listing-container">
+      ${this.listings.map(
+      (item) => html`
             <tv-channel 
               title="${item.title}"
               presenter="${item.metadata.author}"
+              description="${item.description}"
               @click="${this.itemClick}"
+              video="${item.metadata.source}"
             >
             </tv-channel>
           `
-        )
+    )
       }
-      <div>
-        <!-- video -->
-        <!-- discord / chat - optional -->
       </div>
-      <!-- dialog -->
-      <sl-dialog label="Dialog" class="dialog">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <div class="main-content">
+      <div class="player-container">
+        <!-- video -->
+        <iframe class="player"
+          src="${this.createSource()}"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+       
+       
+      </div>
+      <!-- discord / chat - optional -->
+      <div class="discord">
+          <widgetbot server="954008116800938044" channel="1106691466274803723" width="100%" height="100%"><iframe title="WidgetBot Discord chat embed" allow="clipboard-write; fullscreen" src="https://e.widgetbot.io/channels/954008116800938044/1106691466274803723?api=a45a80a7-e7cf-4a79-8414-49ca31324752"></iframe></widgetbot>
+          <script src="https://cdn.jsdelivr.net/npm/@widgetbot/html-embed"></script>
+        </div>
+      </div>
+      
+      <div>
+    <tv-channel title=${this.activeItem.title} presenter=${this.activeItem.author}>
+    <p id= "description">
+    ${this.activeItem.description}
+  </p>
+  </tv-channel>
+  </div>
+
+
+      <sl-dialog label="${this.activeItem.title}" class="dialog">
+      <p>
+      ${this.activeItem.description}
+    </p>
         <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
       </sl-dialog>
+    <
     `;
+  }
+
+  changeVideo() {
+    const iframe = this.shadowRoot.querySelector('iframe');
+    iframe.src = this.createSource();
+  }
+  extractVideoId(link) {
+    try {
+      const url = new URL(link);
+      const searchParams = new URLSearchParams(url.search);
+      return searchParams.get("v");
+    } catch (error) {
+      console.error("Invalid URL:", link);
+      return null;
+    }
+  }
+  createSource() {
+    return "https://www.youtube.com/embed/" + this.extractVideoId(this.activeItem.video);
   }
 
   closeDialog(e) {
@@ -146,6 +192,13 @@ export class TvApp extends LitElement {
 
   itemClick(e) {
     console.log(e.target);
+    this.activeItem = {
+      title: e.target.title,
+      id: e.target.id,
+      description: e.target.description,
+      video: e.target.video,
+    };
+    this.changeVideo(); // Call changeVideo 
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
   }
@@ -166,6 +219,7 @@ export class TvApp extends LitElement {
     await fetch(source).then((resp) => resp.ok ? resp.json() : []).then((responseData) => {
       if (responseData.status === 200 && responseData.data.items && responseData.data.items.length > 0) {
         this.listings = [...responseData.data.items];
+        console.log(this.listings);
       }
     });
   }
