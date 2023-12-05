@@ -11,6 +11,12 @@ export class TvApp extends LitElement {
     this.name = '';
     this.source = new URL('../assets/channels.json', import.meta.url).href;
     this.listings = [];
+    this.activeItem = {
+      title: null,
+      id: null,
+      description: null,
+      author: null,
+    };
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -22,6 +28,7 @@ export class TvApp extends LitElement {
       name: { type: String },
       source: { type: String },
       listings: { type: Array },
+      activeItem: { type: Object }
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -33,7 +40,75 @@ export class TvApp extends LitElement {
         margin: 16px;
         padding: 16px;
       }
-      `
+      .listing-container {
+        justify-self: center;
+        max-width: 1344px;
+        justify-items: left;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: auto;
+        padding-left: .5rem;
+        padding-right: .5rem;
+        text-rendering: optimizeLegibility;
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        animation-delay: 1s;
+        animation-duration: 1s;
+        line-height: 1.5;
+        font-size: 1em;
+      }
+      h5 {
+        font-weight: 400;
+      }
+      .discord {
+        display: inline-flex;
+      }
+      .middle-page{
+        display: inline-flex;
+      }
+
+.main-content {
+          display: flex;
+          flex-direction: row;
+          margin: 12px;
+        }
+ 
+        .player-container {
+          border-radius: 8px;
+          padding: 12px;
+          display: flex;
+          width: 66%;
+        }
+ 
+        .player {
+          width: 100%;
+          aspect-ratio: 16/9;
+          border-radius: 8px;
+        }
+ 
+        .discord {
+          width: 33%;
+          padding: 12px;
+        }
+ 
+        .discord widgetbot {
+          overflow: hidden;
+          background-color: rgb(54, 57, 62);
+          border-radius: 8px;
+          vertical-align: top;
+        }
+        .discord iframe {
+        border-radius: 8px;
+        border: none;
+        width: 100%;
+        height: 100%;
+      }
+      .
+      `,
     ];
   }
   // LitElement rendering template of your element
