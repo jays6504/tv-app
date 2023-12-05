@@ -3,6 +3,7 @@ import { LitElement, html, css } from 'lit';
 import '@shoelace-style/shoelace/dist/components/dialog/dialog.js';
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import "./tv-channel.js";
+import "@lrnwebcomponents/video-player/video-player.js";
 
 export class TvApp extends LitElement {
   // defaults
@@ -133,11 +134,12 @@ export class TvApp extends LitElement {
       <div class="main-content">
       <div class="player-container">
         <!-- video -->
-        <iframe class="player"
-          src="${this.createSource()}"
-          frameborder="0"
-          allowfullscreen>
-        </iframe>
+        <video-player 
+          class="player"
+          source="${this.createSource()}" 
+          accent-color="orange" 
+          dark track="https://haxtheweb.org/files/HAXshort.vtt">
+        </video-player>
        
        
       </div>
@@ -150,7 +152,7 @@ export class TvApp extends LitElement {
       
       <div>
     <tv-channel title=${this.activeItem.title} presenter=${this.activeItem.author}>
-    <p id= "description">
+    <p class= "description">
     ${this.activeItem.description}
   </p>
   </tv-channel>
@@ -161,14 +163,15 @@ export class TvApp extends LitElement {
       <p>
       ${this.activeItem.description}
     </p>
-        <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">Close</sl-button>
+        <sl-button slot="footer" variant="primary" @click="${this.watchButton}">Close</sl-button>
       </sl-dialog>
     `;
   }
 
   changeVideo() {
-    const iframe = this.shadowRoot.querySelector('iframe');
+    const iframe = this.shadowRoot.querySelector('video-player').querySelector('iframe');
     iframe.src = this.createSource();
+    this.shadowRoot.querySelector('video-player').shadowRoot.querySelector('a11y-media-player').play()
   }
   extractVideoId(link) {
     try {
@@ -188,6 +191,10 @@ export class TvApp extends LitElement {
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
   }
+  watchButton(e) {
+    this.closeDialog();
+    this.changeVideo;
+  }
 
   itemClick(e) {
     console.log(e.target);
@@ -197,7 +204,6 @@ export class TvApp extends LitElement {
       description: e.target.description,
       video: e.target.video,
     };
-    this.changeVideo(); // Call changeVideo 
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.show();
   }
