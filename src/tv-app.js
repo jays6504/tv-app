@@ -164,10 +164,10 @@ export class TvApp extends LitElement {
   </div>
     
   <sl-dialog class="dialog">
-      <h2>${this.activeItem.title}</h2>
-      <h4>${this.activeItem.presenter}</h4>
-      <p>${this.activeItem.description}</p>
-      <sl-button slot="footer" variant="primary" @click="${this.closeDialog}">WATCH</sl-button>
+      <h2>${this.nextItem.title}</h2>
+      <h4>${this.nextItem.presenter}</h4>
+      <p>${this.nextItem.description}</p>
+      <sl-button slot="footer" variant="primary" @click="${this.watchVideo}">Watch</sl-button>
   </sl-dialog>
     
     `;
@@ -193,9 +193,12 @@ export class TvApp extends LitElement {
     return "https://www.youtube.com/embed/" + this.extractVideoId(this.activeItem.video);
   }
 
-  closeDialog(e) {
+  watchVideo(e)
+  {
     const dialog = this.shadowRoot.querySelector('.dialog');
     dialog.hide();
+    this.activeItem = this.nextItem;
+    this.shadowRoot.querySelector('video-player').shadowRoot.querySelector('a11y-media-player').play();
   }
 
   itemClick(e) {
