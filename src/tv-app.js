@@ -113,6 +113,19 @@ export class TvApp extends LitElement {
         width: 100%;
         height: 100%;
       }
+
+      .video-info-wrapper {
+        margin: .5rem;
+        padding: .5rem;
+        padding-left: 16px;
+        padding-right: 16px;
+        border-radius: 6px;
+        border-color: #4a4a4a;
+        box-shadow: 0px 0px 0px 1px #dbdbdb;
+        background-color: #ffffff;
+        width: fit-content;
+        block-size: fit-content;
+      }
       .
       `,
     ];
@@ -155,12 +168,13 @@ export class TvApp extends LitElement {
     </div>
     
   <div>
-    <tv-channel title=${this.activeItem.title}>
+    <div class="video-info-wrapper">
+    <h4>${this.activeItem.title}</h4>
     <h5>${this.activeItem.presenter}</h5>
     <p>
     ${this.activeItem.description}
   </p>
-  </tv-channel>
+    </div>
   </div>
     
   <sl-dialog class="dialog">
