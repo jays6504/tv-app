@@ -62,7 +62,6 @@ export class TvApp extends LitElement {
         flex-wrap: nowrap;
         overflow-x: auto;
         overflow-y: auto;
-        padding-left: .5rem;
         padding-right: .5rem;
         text-rendering: optimizeLegibility;
         width: 100%;
@@ -130,6 +129,10 @@ export class TvApp extends LitElement {
         width: fit-content;
         block-size: fit-content;
       }
+      .pagetitle
+      {
+        margin-left:10px
+      }
       .
       `,
     ];
@@ -137,7 +140,7 @@ export class TvApp extends LitElement {
   // LitElement rendering template of your element
   render() {
     return html`
-       <h2>${this.name}</h2>
+       <h2 class="pagetitle">${this.name}</h2>
       <div class="listing-container">
       ${this.listings.map(
       (item) => html`
