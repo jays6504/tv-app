@@ -32,12 +32,12 @@ export class TvChannel extends LitElement {
     return css`
       :host {
         text-rendering: optimizeLegibility;
-        box-sizing: inherit;
+        box-sizing: fit-content;
         display: inline-block;
         line-height: 1.2;
         font-size: 1em;
         font-weight: 400;
-        min-width: 300px;
+        min-width: 500px;
         margin: 0;
         padding: 0;
         transition: all 0.25s ease-in-out;
