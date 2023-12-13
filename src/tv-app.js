@@ -119,6 +119,7 @@ export class TvApp extends LitElement {
 
       .video-info-wrapper {
         margin: .5rem;
+        margin-left: 16px;
         padding: .5rem;
         padding-left: 16px;
         padding-right: 16px;
