@@ -17,12 +17,16 @@ export class TvApp extends LitElement {
       id: null,
       description: null,
       presenter: null,
+      vidlength: null,
+      premiertime: null,
     };
     this.nextItem = {
       title: null,
       id: null,
       description: null,
       presenter: null,
+      vidlength: null,
+      premiertime: null,
     };
   }
   // convention I enjoy using to define the tag's name
@@ -143,6 +147,8 @@ export class TvApp extends LitElement {
               description="${item.description}"
               @click="${this.itemClick}"
               video="${item.metadata.source}"
+              vidlength="${item.metadata.timecode}"
+              premiertime="${item.metadata.premiered}"
             >
             </tv-channel>
           `

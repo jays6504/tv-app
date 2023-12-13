@@ -9,6 +9,8 @@ export class TvChannel extends LitElement {
     this.presenter = '';
     this.description = '';
     this.video= '';
+    this.vidlength = '';
+    this.premiertime = '';
   }
   // convention I enjoy using to define the tag's name
   static get tag() {
@@ -21,6 +23,8 @@ export class TvChannel extends LitElement {
       description: {type: String},
       presenter: { type: String },
       video: {type: String},
+      vidlength: {type: String},
+      premiertime: {type: String}
     };
   }
   // LitElement convention for applying styles JUST to our element
@@ -53,14 +57,47 @@ export class TvChannel extends LitElement {
       p {
         font-size: 12px;
       }
+      .title,
+      .time{
+        display: inline-block;
+      }
+      
+      .premierwrapper {
+        display: block;
+        background-color: #000000;
+        color: #ffffff;
+        border: 10px solid #000000;
+        border-radius: 6px;
+        margin-right: 10px;
+      }
+
+      .lengthwrapper {
+        display: block;
+        background-color: #ffffff;
+        color: #000000;
+        border: 10px solid #ffffff;
+        border-radius: 6px;
+        margin-right: 10px;
+      }
+
     `;
   }
   // LitElement rendering template of your element
   render() {
     return html`
       <div class="wrapper">
-        <h4>${this.title}</h4>
-        <p>${this.description}</p>
+        <div class="time">
+          <div class="premierwrapper">
+            <span class="premier">${this.premiertime}</span>
+          </div>
+          <div class="lengthwrapper">
+            <span class="length">${this.vidlength}</span>
+          </div>
+        </div>
+        <div class="title">
+          <h4>${this.title}</h4>
+          <p>${this.description}</p>
+        </div>
         <slot></slot>
       </div>  
       `;
